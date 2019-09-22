@@ -34,8 +34,8 @@ class DataBase():
     def all_student(self):
         self.cursor.execute("Select * from STUDENT")
         all_student = self.cursor.fetchall()
-        if all_student == 0:
-            print("None")
+        if len(all_student) == 0:
+            print("There is no record") 
         else:
             for i in all_student:
                 students = Student(i[0],i[1],i[2])

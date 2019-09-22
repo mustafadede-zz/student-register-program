@@ -1,5 +1,9 @@
-from student import *
+import sys
+if (sys.version_info.major < 3):
+    print("You have to install python 3 version if you want to run this program.")
+    quit()
 import time
+from student import *
 print("""
 WELCOME !
 PLEASE CHOOSE:
