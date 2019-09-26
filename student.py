@@ -7,8 +7,8 @@ class Student():
         self.search_id=search_id
     def __str__(self):
         return f"Name: {self.namesurname} \nSearch Id: {self.search_id} \nBed number: {self.bed_number}"
-#DATABASE STUFF
-class DataBase():
+#STUDENT DATABASE STUFF
+class StudentDataBase():
     def __init__(self):
         self.connection()
     def connection(self):
@@ -37,6 +37,17 @@ class DataBase():
         if len(all_student) == 0:
             print("There is no record") 
         else:
+            total_student=0
             for i in all_student:
                 students = Student(i[0],i[1],i[2])
+                total_student+=1
                 print(students)
+                print("  --  ")
+            print("Total Student = "+str(total_student))
+    #SPECİFİC SEARCH
+    def search_student(self,bed_number):
+        self.cursor.execute("Select name_surname,search_id from STUDENT where bed_number=?",(bed_number,)) 
+        student = self.cursor.fetchall()
+        for i in student:
+            print("Name and Surname: " + str(i[0])+"\n"+"Search id: " + str(i[1]))
+        self.link.commit()
