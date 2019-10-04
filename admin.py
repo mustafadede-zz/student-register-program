@@ -48,9 +48,16 @@ class AdminDatabase():
     else:
       all_admin=0
       for i in admin:
-        admins = Admin(i[0],i[1],i[2])
+        print("\n"+"Admin ID: "+str(i[0])+"\n"+"Admin Username: " + str(i[1])+"\n"+"Admin Autorization: "+str(i[2]))
         all_admin+=1
-        print(admins)
         print("  --  ")
       print("Total Admin = "+str(all_admin))
       print("  --  ")
+  def admin_autorization(self,auto):
+    self.cursor.execute("Select admin_autorization from ADMIN where admin_namesurname=?",(auto,))
+    autorization = self.cursor.fetchall()
+    self.link.commit()
+    if autorization[0][0] == "yes":
+      return True
+    else:
+      return False

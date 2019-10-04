@@ -24,11 +24,11 @@ class StudentDataBase():
         self.link.commit()
     #USING BED NUMBER FOR DELETE STUDENT
     def delete_student(self,bed_number):
-        self.cursor.execute("Delete from STUDENT where bed_number= ?",(bed_number,))
+        deleted = self.cursor.execute("Delete from STUDENT where bed_number= ?",(bed_number,))
         self.link.commit()
     #UPDATE STUDENT BED NUMBER
     def update_student(self,new_bed,bed_number):
-        self.cursor.execute("Update STUDENT set bed_number= ? where bed_number = ?",(new_bed,bed_number,))
+        bed = self.cursor.execute("Update STUDENT set bed_number= ? where bed_number = ?",(new_bed,bed_number,))
         self.link.commit()
     #SHOW ALL STUDENT
     def all_student(self):
@@ -48,6 +48,10 @@ class StudentDataBase():
     def search_student(self,bed_number):
         self.cursor.execute("Select name_surname,search_id from STUDENT where bed_number=?",(bed_number,)) 
         student = self.cursor.fetchall()
-        for i in student:
-            print("Name and Surname: " + str(i[0])+"\n"+"Search id: " + str(i[1]))
-        self.link.commit()
+        if len(student) == 0:
+            print("There is no record")
+        else:
+            for i in student:
+                print("Name and Surname: " + str(i[0])+"\n"+"Search id: " + str(i[1]))
+                print("  --  ")
+            self.link.commit()
