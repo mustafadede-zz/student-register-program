@@ -1,5 +1,5 @@
 import sqlite3
-# ADMİN OBJECT
+# ADMIN OBJECT
 class Admin():
   def __init__(self,admin_id = None,admin_namesurname = None,admin_pass = None,admin_autorization = None):
     self.admin_id = admin_id
@@ -8,7 +8,7 @@ class Admin():
     self.admin_autorization = admin_autorization
   def __str__(self):
     return f"Admin id: {self.admin_id}\nAdmin name: {self.admin_namesurname}\nAdmin Autorization: {self.admin_autorization}"
-# ADMİN DATABASE OBJECT
+# ADMIN DATABASE OBJECT
 class AdminDatabase():
   def __init__(self):
     self.connection()
@@ -20,22 +20,26 @@ class AdminDatabase():
     self.link.commit()
   def disconnection(self):
     self.link.close()
-  #CREATE ADMİN
+  # CREATE ADMIN
   def create_admin(self,Admin):
     self.cursor.execute("Insert into ADMIN VALUES (?,?,?,?)",(Admin.admin_id,Admin.admin_namesurname,Admin.admin_pass,Admin.admin_autorization))
     self.link.commit()
   def admin_nick(self,name):
     self.cursor.execute("Select admin_namesurname from ADMIN where admin_namesurname=?",(name,))
     admin = self.cursor.fetchall()
-    for name in admin:
-      return True
     self.link.commit()
+    if name == admin[0][0]:
+      return True
+    else:
+      return False
   def admin_pass(self,passw):
     self.cursor.execute("Select admin_pass from ADMIN where admin_pass=?",(passw,))
     admin_passw = self.cursor.fetchall()
-    for name in admin_passw:
-      return True
     self.link.commit()
+    if passw == admin_passw[0][0]:
+      return True
+    else:
+      return False
   def all_admin(self):
     self.cursor.execute("Select admin_id,admin_namesurname,admin_autorization from ADMIN") 
     admin = self.cursor.fetchall()
@@ -48,4 +52,5 @@ class AdminDatabase():
         all_admin+=1
         print(admins)
         print("  --  ")
-        print("Total Admin = "+str(all_admin))
+      print("Total Admin = "+str(all_admin))
+      print("  --  ")

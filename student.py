@@ -22,7 +22,7 @@ class StudentDataBase():
     def create_student(self,Student):
         self.cursor.execute("Insert into STUDENT Values(?,?,?)",(Student.search_id,Student.namesurname,Student.bed_number))
         self.link.commit()
-    #USİNG BED NUMBER FOR DELETE STUDENT
+    #USING BED NUMBER FOR DELETE STUDENT
     def delete_student(self,bed_number):
         self.cursor.execute("Delete from STUDENT where bed_number= ?",(bed_number,))
         self.link.commit()
@@ -44,7 +44,7 @@ class StudentDataBase():
                 print(students)
                 print("  --  ")
             print("Total Student = "+str(total_student))
-    #SPECİFİC SEARCH
+    # SPECIFIC SEARCH
     def search_student(self,bed_number):
         self.cursor.execute("Select name_surname,search_id from STUDENT where bed_number=?",(bed_number,)) 
         student = self.cursor.fetchall()
